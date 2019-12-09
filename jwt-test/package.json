@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "koa-jwt": "^3.6.0"
+  }
+}
