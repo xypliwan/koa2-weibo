@@ -7,7 +7,7 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session');
 const redisStore = require('koa-redis')
-const jwtKoa = require('koa-jwt')
+// const jwtKoa = require('koa-jwt')
 
 const {
   REDIS_CONF
@@ -16,19 +16,21 @@ const {
   isProd
 } = require('./utils/env')
 
-const {
-  SECRET
-} = require('./conf/constants')
+// const {
+//   SECRET
+// } = require('./conf/constants')
 
+//路由
 const index = require('./routes/index')
-const users = require('./routes/users')
+const userViewRouter = require('./routes/view/user')
+const userAPIRouter = require('./routes/api/user')
 const errorViewRouter = require('./routes/view/error')
 
-app.use(jwtKoa({
-  secret: SECRET
-}).unless({
-  path: [/^\/users\/login/] //自定义那些目录忽略  jwt验证
-}))
+// app.use(jwtKoa({
+//   secret: SECRET
+// }).unless({
+//   path: [/^\/users\/login/] //自定义那些目录忽略  jwt验证
+// }))
 
 // error handler
 let onerrorConf = {}
@@ -67,17 +69,12 @@ app.use(session({
   })
 }))
 
-// logger
-// app.use(async (ctx, next) => {
-//   const start = new Date()
-//   await next()
-//   const ms = new Date() - start
-//   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-// })
+
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
 
