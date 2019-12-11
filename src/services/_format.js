@@ -2,13 +2,17 @@
  * 数据格式化
  */
 
+const {
+    DEFASULT_PICTURE
+} = require('../conf/constants')
+
 /** 
  * 用户默认头像
  * @param {Object} obj 用户对象 
  */
 function _formatUserPicture(obj) {
     if (obj.picture == null) {
-        obj.picture = 'https://dwz.cn/rnTnftZs'
+        obj.picture = DEFASULT_PICTURE
     }
     return obj
 }

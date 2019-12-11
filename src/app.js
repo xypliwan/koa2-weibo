@@ -16,6 +16,8 @@ const {
   isProd
 } = require('./utils/env')
 
+const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
+
 // const {
 //   SECRET
 // } = require('./conf/constants')
@@ -54,7 +56,7 @@ app.use(views(__dirname + '/views', {
 }))
 
 //session 配置
-app.keys = ['UIsdf_7878#$'];
+app.keys = [SESSION_SECRET_KEY];
 app.use(session({
   key: 'weibo.sid', //cookie name  默认'koa.sid'
   prefix: 'weibo:sess:', //redis  key的前缀，默认是 'koa:sess:'
