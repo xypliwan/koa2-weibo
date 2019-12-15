@@ -38,6 +38,8 @@ async function isExist(userName) {
 
 }
 
+
+
 /** 
  * 注册
  * @param { string } userName  用户名
